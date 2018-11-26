@@ -1,0 +1,113 @@
+library(RJSONIO)
+library(WDI)
+#library(ggplot2)
+start_year <- 1960
+end_year <- 2015
+break_date <- 1990
+wdi_indicator <- 'SP.DYN.LE00.IN'
+wdi_country <- 'US'
+#Grab Birth rate, crude (per 1,000 people) for USA
+#From 1990-2014 for Birth rate, crude (per 1,000 people) for USA
+Data = WDI(indicator=wdi_indicator, country=wdi_country, start=start_year, end=end_year)
+Data1 = WDI(indicator=wdi_indicator, country=wdi_country, start=start_year, end=break_date)
+Data2 = WDI(indicator=wdi_indicator, country=wdi_country, start=break_date, end=break_date)
+Data3 = WDI(indicator=wdi_indicator, country=wdi_country, start=break_date, end=end_year)
+#Data4 = WDI(indicator=wdi_indicator, country=wdi_country, start=end_year, end=end_year)
+#Remove the unwanted columns
+#Data$iso2c<-NULL
+Data$country<-NULL
+Data1$iso2c<-NULL
+Data1$country<-NULL
+Data2$iso2c<-NULL
+Data2$country<-NULL
+Data3$iso2c<-NULL
+Data3$country<-NULL
+#Data4$iso2c<-NULL
+#Data4$country<-NULL
+#Change the column position
+Data <- subset(Data, select=c(year,SP.DYN.LE00.IN))
+#Left Join
+library(plyr)
+p1<-join_all(list(Data,Data1,Data2,Data3), by='year', type='left')
+#change the column names
+colnames(p1) <- c("year", "rate","data1","data2","data3")
+#fill the NA with null
+p1[is.na(p1)] <- "null"
+#Change the year order
+d<- p1[order(p1$year),]
+#Make the original name column be NA
+#Data4$SP.DYN.CBRT.IN <- NA
+#colnames(Data4)<-c("Population growth (annual %)")
+#d1<-join_all(list(d,Data4), by='year', type='left')
+write.csv(d,"lifedata.csv", row.names=FALSE)
+View(p1)
+View(d)
+sqrt(0.46*(1-0.46)/400)
+0.98/3
+0.98/sqrt(1/8)
+require(shiny)
+require(ggplot2)
+library(dplyr)
+require(scales)
+require(Cairo)
+install.packages(Cairo)
+install.packages("Cairo")
+require(Cairo)
+require(grid)
+require(gridExtra)
+install.packages("gridExtra")
+install.packages("dplyr")
+install.packages("dplyr")
+library(forcats)
+install.packages("forcats")
+library(shinyBS)
+install.packages("shinyBS")
+install.packages("DT")
+install.packages("reshape2")
+library(shinyBS)
+library(DT)
+library(reshape2)
+library(shiny); runApp('GWU/CSIS/R-app/FPDSapp.R')
+install.packages("shinyjs")
+runApp('GWU/CSIS/R-app/FPDSapp.R')
+setwd('~//Dropbox/JOB/CSIS')
+data <- read.csv("diff.csv")
+library(dplyr)
+View(data)
+df <- spread(data, FY, Amount)
+library(tidyr)
+install.packages("tidyr")
+library(tidyr)
+df <- spread(data, FY, Amount)
+View(df)
+df2 <- dcast(data, Customer + Subcustomer + TYPE ~ FY, value.var="Amount")
+library(reshape2)
+df2 <- dcast(data, Customer + Subcustomer + TYPE ~ FY, value.var="Amount")
+View(df2)
+setwd('/Users/zwang/GWU/CSIS/R-app/TableApp')
+mydata = read.csv("table.csv")
+colnames(mydata)[1] <- "FY"
+mydata$FY <-  paste("FY", mydata$FY, sep = "_")
+df <- spread(mydata, FY, Amount)
+View(df)
+library(reshape2)
+new1 <-
+dcast(mydata, Customer+SubCustomer+Simple+ProductOrServiceArea+PlatformPortfolio
++ProjectName+ProductOrServiceCodeText+ClaimantProgramCodeText
++CompetitionClassification+ClassifyNumberOfOffers+typeofcontractpricingtext
++VendorSize+ParentID+ContractorDisplayName+MinOfFiscal_Year+maxoffiscal_year
++SizeOfObligatedAmount+SizeOfUnmodifiedSumOfbaseandexercisedoptionsvalue
++SizeofSumofbaseandexercisedoptionsvalue+SumOfnumberOfActions
+~ FY, value.var="Amount")
+library(shiny); runApp('select_file_app.R')
+runApp('select_file_app.R')
+View(mydata)
+df <- spread(data, FY, Amount)
+View(df)
+df <- spread(mydata, FY, Amount)
+View(df)
+runApp('select_file_app.R')
+runApp('select_file_app.R')
+View(new1)
+View(df)
+runApp('select_file_app.R')
